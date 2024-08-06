@@ -1,11 +1,12 @@
-import { fetchInvoicesPages } from "@/app/lib/data";
-import { lusitana } from "@/app/ui/fonts";
-import { CreateInvoice } from "@/app/ui/invoices/buttons";
-import Pagination from "@/app/ui/invoices/pagination";
-import Table from "@/app/ui/invoices/table";
-import Search from "@/app/ui/search";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
-import { Suspense } from "react";
+import { fetchInvoicesPages } from '@/app/lib/data'
+import { lusitana } from '@/app/ui/fonts'
+import { CreateInvoice } from '@/app/ui/invoices/buttons'
+import Pagination from '@/app/ui/invoices/pagination'
+import Table from '@/app/ui/invoices/table'
+import Search from '@/app/ui/search'
+import { InvoicesTableSkeleton } from '@/app/ui/skeletons'
+import { Metadata } from 'next'
+import { Suspense } from 'react'
 
 interface InvoicePageProps {
   searchParams?: {
@@ -14,7 +15,11 @@ interface InvoicePageProps {
   }
 }
 
-export default async function Page({searchParams}: InvoicePageProps) {
+export const metadata: Metadata = {
+  title: 'Invoices',
+}
+
+export default async function Page({ searchParams }: InvoicePageProps) {
   const query = searchParams?.query || ''
   const currentPage = +(searchParams?.page || 1)
   const totalPages = await fetchInvoicesPages(query)
